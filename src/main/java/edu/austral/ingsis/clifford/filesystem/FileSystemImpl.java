@@ -13,13 +13,6 @@ public class FileSystemImpl implements FileSystem {
         this.actual = createRootDirectory();
     }
 
-    public Directory createRootDirectory() {
-        return new DirectoryBuilder()
-                .setName("root")
-                .setPath("/")
-                .build();
-    }
-
     @Override
     public void ls(String flag) {
         if (flag.isEmpty()) {
@@ -41,22 +34,28 @@ public class FileSystemImpl implements FileSystem {
     }
 
     @Override
-    public void touch(String fileName) {
+    public void touch(String fileName) throws IllegalArgumentException{
         File file = new FileBuilder()
                 .setName(fileName)
                 .setContent("")
                 .setPath(actual.getPath() + "/" + fileName)
                 .build();
+        if (file.getName().contains("/") || file.getName().contains(" ")) {
+            throw new IllegalArgumentException("Invalid file name: Cannot contain / or spaces");
+        }
         actual.insertFile(file);
         System.out.println("'" + fileName + "' file created");
     }
 
     @Override
-    public void mkdir(String directoryName) {
+    public void mkdir(String directoryName) throws IllegalArgumentException {
         Directory directory = new DirectoryBuilder()
                 .setName(directoryName)
                 .setPath(actual.getPath() + "/" + directoryName)
                 .build();
+        if (directory.getName().contains("/") || directory.getName().contains(" ")) {
+            throw new IllegalArgumentException("Invalid directory name: Cannot contain / or spaces");
+        }
         actual.insertDirectory(directory);
         System.out.println("'" + directoryName + "' directory created");
     }
@@ -69,5 +68,12 @@ public class FileSystemImpl implements FileSystem {
     @Override
     public void pwd() {
         System.out.println(actual.getPath());
+    }
+
+    public Directory createRootDirectory() {
+        return new DirectoryBuilder()
+                .setName("root")
+                .setPath("/")
+                .build();
     }
 }
