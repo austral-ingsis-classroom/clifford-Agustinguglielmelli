@@ -20,6 +20,9 @@ public class Main {
         fileSystem.cd("directorioUltimo");
         fileSystem.ls("");
         fileSystem.cd("..");
+        fileSystem.rm("--recursive directorioUltimo");
+        fileSystem.ls("");
         System.out.println("---------FINAL--------------");
+
     }
 }

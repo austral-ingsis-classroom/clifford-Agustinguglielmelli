@@ -112,9 +112,36 @@ public class FileSystemImpl implements FileSystem {
     }
 
     @Override
-    public void rm() {
+    public void rm(String itemName) {
+        boolean recursive = false; // si recursive es false nopuedo eliminar un directorio
+        String targetName;
 
+        if (itemName.startsWith("--recursive ")) {
+            recursive = true;
+            targetName = itemName.replaceFirst("--recursive", "").trim();
+        } else {
+            targetName = itemName.trim();
+        }
+
+        FileSystemItem item = actual.getChild(targetName);
+        if (item == null) {
+            System.out.println("No such file or directory: " + targetName);
+            return;
+        }
+        if (item instanceof File) {
+            actual.getChildren().remove(targetName);
+            System.out.println("'" + targetName + "' removed");
+        } else if (item instanceof Directory) {
+            if (!recursive) {
+                System.out.println("Cannot remove directory without --recursive");
+            } else {
+                actual.getChildren().remove(targetName);
+                System.out.println("'" + targetName + "' removed");
+            }
+        }
     }
+
+
 
     @Override
     public void pwd() {

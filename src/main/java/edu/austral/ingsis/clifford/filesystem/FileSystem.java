@@ -10,7 +10,7 @@ public interface FileSystem {
 
     public void mkdir(String itemName);
 
-    public void rm();
+    public void rm(String itemName);
 
     public void pwd();
 

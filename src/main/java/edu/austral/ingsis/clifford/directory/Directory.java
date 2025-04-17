@@ -21,7 +21,9 @@ public class Directory implements FileSystemItem {
         this.path = path;
         this.parent = parent;
     }
-
+    public Map<String, FileSystemItem> getChildren() {
+        return children;
+    }
     public void insertFile(File file) {
         children.put(file.getName(), file);
     }
