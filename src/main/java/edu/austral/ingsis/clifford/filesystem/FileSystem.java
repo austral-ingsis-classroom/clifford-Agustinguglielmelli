@@ -2,13 +2,13 @@ package edu.austral.ingsis.clifford.filesystem;
 
 public interface FileSystem {
 
-    public void ls();
+    public void ls(String flag);
 
     public void cd();
 
     public void touch(String itemName);
 
-    public void mkdir();
+    public void mkdir(String itemName);
 
     public void rm();
 

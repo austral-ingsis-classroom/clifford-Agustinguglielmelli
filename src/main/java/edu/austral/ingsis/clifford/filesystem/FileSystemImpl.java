@@ -10,10 +10,10 @@ public class FileSystemImpl implements FileSystem {
     Directory actual;
 
     public FileSystemImpl() {
-        this.actual = createRoot();
+        this.actual = createRootDirectory();
     }
 
-    public Directory createRoot() {
+    public Directory createRootDirectory() {
         return new DirectoryBuilder()
                 .setName("root")
                 .setPath("/")
@@ -21,8 +21,18 @@ public class FileSystemImpl implements FileSystem {
     }
 
     @Override
-    public void ls() {
-
+    public void ls(String flag) {
+        if (flag.isEmpty()) {
+            actual.printChildren();
+        }
+        switch (flag) {
+            case "--ord=asc":
+                actual.printChildrenAsc();
+                break;
+            case "--ord=desc":
+                actual.printChildrenDesc();
+                break;
+        }
     }
 
     @Override
@@ -37,13 +47,18 @@ public class FileSystemImpl implements FileSystem {
                 .setContent("")
                 .setPath(actual.getPath() + "/" + fileName)
                 .build();
-        actual.insert(file);
+        actual.insertFile(file);
         System.out.println("'" + fileName + "' file created");
     }
 
     @Override
-    public void mkdir() {
-
+    public void mkdir(String directoryName) {
+        Directory directory = new DirectoryBuilder()
+                .setName(directoryName)
+                .setPath(actual.getPath() + "/" + directoryName)
+                .build();
+        actual.insertDirectory(directory);
+        System.out.println("'" + directoryName + "' directory created");
     }
 
     @Override
@@ -53,6 +68,6 @@ public class FileSystemImpl implements FileSystem {
 
     @Override
     public void pwd() {
-
+        System.out.println(actual.getPath());
     }
 }
