@@ -4,7 +4,7 @@ public interface FileSystem {
 
     public void ls(String flag);
 
-    public void cd();
+    public void cd(String path);
 
     public void touch(String itemName);
 

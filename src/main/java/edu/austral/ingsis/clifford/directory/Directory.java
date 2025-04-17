@@ -12,12 +12,14 @@ import java.util.Map;
 public class Directory implements FileSystemItem {
     String name;
     String path;
+    Directory parent;
     Map<String, FileSystemItem> children = new LinkedHashMap<>(); // uso esta estructura porque mantiene orden de insercion
 
 
-    public Directory(String name, String path) {
+    public Directory(String name, String path, Directory parent) {
         this.name = name;
         this.path = path;
+        this.parent = parent;
     }
 
     public void insertFile(File file) {
@@ -45,6 +47,14 @@ public class Directory implements FileSystemItem {
         for (String key : names){
             System.out.println(key);
         }
+    }
+
+    public FileSystemItem getChild(String name) {
+        return children.get(name);
+    }
+
+    public Directory getParent() {
+        return parent;
     }
 
     @Override
