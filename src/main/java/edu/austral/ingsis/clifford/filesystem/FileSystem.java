@@ -1,18 +1,18 @@
 package edu.austral.ingsis.clifford.filesystem;
 
+import java.util.List;
+
 public interface FileSystem {
 
-    public void ls(String flag);
+  List<String> ls(String flag);
 
-    public void cd(String path);
+  String cd(String path);
 
-    public void touch(String itemName);
+  String touch(String itemName);
 
-    public void mkdir(String itemName);
+  String mkdir(String itemName);
 
-    public void rm(String itemName);
+  String rm(String itemName);
 
-    public void pwd();
-
-
+  String pwd();
 }

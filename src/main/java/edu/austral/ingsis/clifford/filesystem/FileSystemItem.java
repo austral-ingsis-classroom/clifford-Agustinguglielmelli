@@ -2,8 +2,7 @@ package edu.austral.ingsis.clifford.filesystem;
 
 public interface FileSystemItem {
 
-    String getName();
+  String getName();
 
-    String getPath();
-
+  String getPath();
 }
