@@ -8,7 +8,6 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 public class FileSystemTests {
-
   private final FileSystemRunner runner = new FileSystemRunnerImpl();
 
   private void executeTest(List<Map.Entry<String, String>> commandsAndResults) {
